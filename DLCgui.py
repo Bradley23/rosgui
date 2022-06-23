@@ -58,6 +58,18 @@ class MyWindow:
         self.choosefolder = Button(self.midleft, text='Training Dataset', command=self.traindataset, height=2, width=10)
         self.choosefolder.place(x=column2spacing, y=220)
         
+        midlefttext = """__Startup__
+Begin by choosing base directory. Then choose config file.
+To select videos, use "Choose Folder" to automatically select all videos within a rat# folder.
+To select specific videos, use "Choose File" to select videos within a rat# folder.
+
+__Create Project__
+Use "Directory" to set location of network.
+Use "Choose File/Folder" to select videos."""
+        
+        self.p1 = Label(self.midleft, justify=LEFT, text=midlefttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",12))
+        self.p1.place(x=5, y=5)
+        
         # bot left frame
         self.botleft = Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
         self.botleft.grid(row=3, column=0, padx=10, pady=10)
@@ -92,12 +104,18 @@ class MyWindow:
         self.choosefolder = Button(self.botright, text='Merge Datasets', command=self.merge, height=2, width=10)
         self.choosefolder.place(x=column2spacing, y=170)
         
+        botrighttext = """__Analyze/Label__
+Analyzes and Labels all videos chosen with Choose File/Folder."""
+        
+        self.p1 = Label(self.botright, justify=LEFT, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",12))
+        self.p1.place(x=5, y=5)
+        
     def direct(self):
         self.curdir = askdirectory()
     def config(self):
         self.configfile = askopenfilename(initialdir=self.curdir)
     def choosefile(self):
-        self.vidpaths = askopenfilenames(initialdir=self.curdir)
+        self.vidpaths = askopenfilename(initialdir=self.curdir)
     def choosefolder(self):
         self.vidpaths = []
         dirpaths = []
@@ -109,7 +127,6 @@ class MyWindow:
         for a in files:
             fullpath = dirpath+'/'+a
             dirpaths.append(fullpath)
-        print(dirpaths)
         for foldername in dirpaths:
             files2 = []
             for (dirpath2,dirnames2,filenames2) in os.walk(foldername):
@@ -121,7 +138,6 @@ class MyWindow:
                     self.vidpaths.append(fullpath)
                 else:
                     pass
-        print(self.vidpaths)
     
     def createproj(self):
         progresspercent = '0 %'
@@ -129,7 +145,7 @@ class MyWindow:
         window.update()
         projname = askstring('Create New Project','Title of Project?')
         initials = askstring('Create New Project','Creator Initials?')
-        #dlc.create_new_project(projname,initials,self.vidpaths, working_directory=vidpath,copy_videos=False)
+        #dlc.create_new_project(projname,initials,self.vidpaths, working_directory=self.curdir,copy_videos=False)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         window.update()
