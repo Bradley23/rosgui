@@ -29,9 +29,6 @@ column2spacing = framewidth*7/12
 
 class MyWindow:
     
-    progress = 0
-    progresspercent = 0
-    
     def __init__(self, win):
         # top left frame
         self.topleft = Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
@@ -96,81 +93,133 @@ class MyWindow:
         self.choosefolder.place(x=column2spacing, y=170)
         
     def direct(self):
-        print(os.getcwd())
         self.curdir = askdirectory()
-        os.chdir(self.curdir)
-        print(os.getcwd())
     def config(self):
-        self.configfile = askopenfilename()
+        self.configfile = askopenfilename(initialdir=self.curdir)
     def choosefile(self):
-        vidpaths = askopenfilenames()
+        self.vidpaths = askopenfilenames(initialdir=self.curdir)
     def choosefolder(self):
-        vidpath = askdirectory()
+        self.vidpaths = []
+        dirpaths = []
+        folderpath = askdirectory(initialdir=self.curdir)
         files = []
-        for (dirpath, dirnames, filenames) in os.walk(vidpath):
-            files.extend(filenames)
-            print(dirpath)
+        files2 = []
+        for (dirpath, dirnames, filenames) in os.walk(folderpath):
+            files.extend(dirnames)
             break
-        print(files)
-        for i in files:
-            if i[-3:] == '.py':
-                print(dirpath+'/'+i)
+        for a in files:
+            fullpath = dirpath+'/'+a
+            dirpaths.append(fullpath)
+        for i in dirpaths:
+            for (dirpath2,dirnames2,filenames2) in os.walk(i):
+                files2.extend(filenames2)
+                break
+            if i[-4:] == '.mp4':
+                fullpath = dirpath2+'/'+i
+                self.vidpaths.append(fullpath)
             else:
                 pass
+        print(self.vidpaths)
     
     def createproj(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         projname = askstring('Create New Project','Title of Project?')
         initials = askstring('Create New Project','Creator Initials?')
         #dlc.create_new_project(projname,initials,self.vidpaths, working_directory=vidpath,copy_videos=False)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     def addvids(self):
-        self.testingvar = 'Hello World!'
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.add_new_videos(self.configfile,self.vidpaths,copy_videos=False)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     def extframes(self):
-        print(self.testingvar)
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.extract_frames(self.configfile,‘manual’,crop=False, userfeedback=False)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     def labframes(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.label_frames(self.configfile)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     def traindataset(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.create_training_dataset(self.configfile,num_shuffles=1)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     
     def trainnet(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         maxiters = askinteger('Train Network',"""Maxiters? (typically "200000")""")
         #dlc.train_network(self.configfile,maxiters=maxiters)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     def evalnet(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.evaluate_network(self.configfile,plotting=True)
-        pass
-    
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()    
     def analyzelabel(self):
-        #progress = 0
-        #progresspercent = '0 %'
-        #self.text.set(progresspercent)
-        #window.update()
-        #for vid in self.vidpaths:
+        progress = 0
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
+        for vid in self.vidpaths:
             #dlc.analyze_videos(self.configfile,vid,shuffle=1,save_as_csv=True)
             #dlc.create_labeled_video(self.configfile,vid,draw_skeleton=True)
-            #progress = progress + 1
-            #progresspercent = 100 * progress / len(self.vidpaths)
-            #progresspercent = str(progresspercent)
-            #progresspercent = progresspercent + ' %'
-            #self.text.set(progresspercent)
-            #window.update()
-        pass
+            progress = progress + 1
+            progresspercent = 100 * progress / len(self.vidpaths)
+            progresspercent = str(progresspercent)
+            progresspercent = progresspercent + ' %'
+            self.text.set(progresspercent)
+            window.update()
     def extoutliers(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.extract_outlier_frames(self.configfile,self.vidpaths)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     def refinelabels(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.refine_labels(self.configfile)
-        pass
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
     def merge(self):
+        progresspercent = '0 %'
+        self.text.set(progresspercent)
+        window.update()
         #dlc.merge_datasets(self.configfile)
-        pass
-    
+        progresspercent = '100 %'
+        self.text.set(progresspercent)
+        window.update()
+
 
 # window properties
 window = Tk()
