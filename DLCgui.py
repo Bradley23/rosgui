@@ -16,6 +16,7 @@ Created on Thu Jun 16 11:27:11 2022
 from tkinter import *
 from tkinter.filedialog import askopenfilenames,askopenfilename,askdirectory
 from tkinter.simpledialog import askstring,askinteger
+from tkinter.messagebox import askokcancel
 import os
 
 win_color = '#333333'
@@ -28,6 +29,7 @@ column2spacing = framewidth*7/12
 buttonwidth = 10
 buttonheight = 2
 fontcolor = '#ffffff'
+fontsize = 12
 
 class MyWindow:
     
@@ -63,13 +65,12 @@ class MyWindow:
         midlefttext = """__Startup__
 Begin by choosing base directory. Then choose config file.
 To select videos, use "Choose Folder" to automatically select all videos within a rat# folder.
-To select specific videos, use "Choose File" to select videos within a rat# folder.
-
+To select specific videos, use "Choose File" to select videos within a rat# folder.\n
 __Create Project__
 Use "Directory" to set location of network.
 Use "Choose File/Folder" to select videos."""
         
-        self.p1 = Label(self.midleft, justify=LEFT, fg=fontcolor, text=midlefttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",12))
+        self.p1 = Label(self.midleft, justify=LEFT, fg=fontcolor, text=midlefttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
         self.p1.place(x=5, y=5)
         
         # bot left frame
@@ -113,9 +114,13 @@ Use "Choose File/Folder" to select videos."""
         self.choosefolder.place(x=column2spacing, y=170)
         
         botrighttext = """__Analyze/Label__
-Analyzes and Labels all videos chosen with Choose File/Folder."""
+Analyzes and Labels all videos chosen with Choose File/Folder.\n
+__Choose Folder__
+Choose week/cam/"rat" folder which selects all.mp4 files inside.\n
+__Choose File__
+Choose specific folders for indicidual .mp4 files."""
         
-        self.p1 = Label(self.botright, justify=LEFT, fg=fontcolor, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",12))
+        self.p1 = Label(self.botright, justify=LEFT, fg=fontcolor, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
         self.p1.place(x=5, y=5)
         
     def direct(self):
@@ -123,7 +128,27 @@ Analyzes and Labels all videos chosen with Choose File/Folder."""
     def config(self):
         self.configfile = askopenfilename(initialdir=self.curdir)
     def choosefile(self):
-        self.vidpaths = askopenfilename(initialdir=self.curdir)
+        dirpaths = []
+        self.vidpaths=[]
+        dirpaths.append(askdirectory(initialdir=self.curdir))
+        answer = askokcancel(title='Deeplabcut Operator',message='Press "Ok" to select more videos.')
+        while answer:
+            dirpaths.append(askdirectory(initialdir=self.curdir))
+            answer = askokcancel(title='Deeplabcut Operator',message='Press "Ok" to select more videos.')
+        else:
+            pass
+        for paths in dirpaths:
+            files = []
+            for (dirpath, dirnames, filenames) in os.walk(paths):
+                files.extend(filenames)
+                break
+            for vidname in files:
+                if vidname[-4:] == '.mp4':
+                    fullpath = dirpath+'/'+vidname
+                    self.vidpaths.append(fullpath)
+                else:
+                    pass
+        print(self.vidpaths)
     def choosefolder(self):
         self.vidpaths = []
         dirpaths = []
