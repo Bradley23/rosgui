@@ -114,11 +114,12 @@ class MyWindow:
             for (dirpath2,dirnames2,filenames2) in os.walk(i):
                 files2.extend(filenames2)
                 break
-            if i[-4:] == '.mp4':
-                fullpath = dirpath2+'/'+i
-                self.vidpaths.append(fullpath)
-            else:
-                pass
+            for b in files2:
+                if b[-4:] == '.mp4':
+                    fullpath = dirpath2+'/'+i
+                    self.vidpaths.append(fullpath)
+                else:
+                    pass
         print(self.vidpaths)
     
     def createproj(self):
