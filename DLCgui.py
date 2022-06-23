@@ -103,20 +103,21 @@ class MyWindow:
         dirpaths = []
         folderpath = askdirectory(initialdir=self.curdir)
         files = []
-        files2 = []
         for (dirpath, dirnames, filenames) in os.walk(folderpath):
             files.extend(dirnames)
             break
         for a in files:
             fullpath = dirpath+'/'+a
             dirpaths.append(fullpath)
-        for i in dirpaths:
-            for (dirpath2,dirnames2,filenames2) in os.walk(i):
+        print(dirpaths)
+        for foldername in dirpaths:
+            files2 = []
+            for (dirpath2,dirnames2,filenames2) in os.walk(foldername):
                 files2.extend(filenames2)
                 break
-            for b in files2:
-                if b[-4:] == '.mp4':
-                    fullpath = dirpath2+'/'+i
+            for vidname in files2:
+                if vidname[-4:] == '.mp4':
+                    fullpath = dirpath2+'/'+vidname
                     self.vidpaths.append(fullpath)
                 else:
                     pass
