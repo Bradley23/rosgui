@@ -168,14 +168,14 @@ Choose specific folders for indicidual .mp4 files."""
             allmp4s = []
             for vidname in files2:
                 if vidname[-4:] == '.mp4':
-                    allmp4s.append(vidname)
-                else:
-                    pass
-                if len(allmp4s) == 1:
                     fullpath = dirpath2+'/'+vidname
-                    self.vidpaths.append(fullpath)
+                    allmp4s.append(fullpath)
                 else:
                     pass
+            if len(allmp4s) == 1:
+                self.vidpaths.append(allmp4s[0])
+            else:
+                pass
     
     def createproj(self):
         progresspercent = '0 %'
