@@ -165,8 +165,13 @@ Choose specific folders for indicidual .mp4 files."""
             for (dirpath2,dirnames2,filenames2) in os.walk(foldername):
                 files2.extend(filenames2)
                 break
+            allmp4s = []
             for vidname in files2:
                 if vidname[-4:] == '.mp4':
+                    allmp4s.append(vidname)
+                else:
+                    pass
+                if len(allmp4s) == 1:
                     fullpath = dirpath2+'/'+vidname
                     self.vidpaths.append(fullpath)
                 else:
