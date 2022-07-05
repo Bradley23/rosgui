@@ -19,6 +19,8 @@ from tkinter.simpledialog import askstring,askinteger
 from tkinter.messagebox import askokcancel
 import os
 
+# window property values
+
 win_color = '#333333'
 frame_color = '#555555'
 winheight = 600
@@ -32,6 +34,8 @@ fontcolor = '#ffffff'
 fontsize = 12
 
 class MyWindow:
+    
+    #__WINDOW LAYOUT__
     
     def __init__(self, win):
         # top left frame
@@ -123,6 +127,7 @@ Choose specific folders for individual .mp4 files."""
         self.p1 = tk.Label(self.botright, justify=tk.LEFT, fg=fontcolor, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
         self.p1.place(x=5, y=5)
         
+    #top left frame
     def direct(self):
         self.curdir = askdirectory()
     def config(self):
@@ -177,6 +182,9 @@ Choose specific folders for individual .mp4 files."""
             else:
                 pass
     
+    #__BUTTON FUNCTIONS__
+    
+    #mid left frame
     def createproj(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
@@ -230,6 +238,7 @@ Choose specific folders for individual .mp4 files."""
         self.progressbar.config(width=6*framewidth/8-4)
         window.update()
     
+    #bot left frame
     def trainnet(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
@@ -251,6 +260,8 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
         window.update()
+    
+    #bot right frame
     def analyzelabel(self):
         progress = 0
         progresspercent = '0 %'
@@ -313,5 +324,3 @@ window.geometry(geostr)
 window.configure(bg=win_color)
 window.resizable(False, False)
 window.mainloop()
-
-#analyze/label videos, choose week, 
