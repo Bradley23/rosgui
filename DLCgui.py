@@ -14,7 +14,7 @@ Created on Thu Jun 16 11:27:11 2022
 # /end
 
 import tkinter as tk
-from tkinter.filedialog import askopenfilenames,askopenfilename,askdirectory
+from tkinter.filedialog import askopenfilename,askdirectory
 from tkinter.simpledialog import askstring,askinteger
 from tkinter.messagebox import askokcancel
 import os
@@ -118,7 +118,7 @@ Analyzes and Labels all videos chosen with Choose File/Folder.\n
 __Choose Folder__
 Choose week/cam/"rat" folder which selects all.mp4 files inside.\n
 __Choose File__
-Choose specific folders for indicidual .mp4 files."""
+Choose specific folders for individual .mp4 files."""
         
         self.p1 = tk.Label(self.botright, justify=tk.LEFT, fg=fontcolor, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
         self.p1.place(x=5, y=5)
