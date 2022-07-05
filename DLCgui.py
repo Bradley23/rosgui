@@ -13,7 +13,7 @@ Created on Thu Jun 16 11:27:11 2022
 #import deeplabcut as dlc
 # /end
 
-from tkinter import *
+import tkinter as tk
 from tkinter.filedialog import askopenfilenames,askopenfilename,askdirectory
 from tkinter.simpledialog import askstring,askinteger
 from tkinter.messagebox import askokcancel
@@ -35,31 +35,31 @@ class MyWindow:
     
     def __init__(self, win):
         # top left frame
-        self.topleft = Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
+        self.topleft = tk.Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
         self.topleft.grid(row=0, column=0, padx=10, pady=10)
         
-        self.direct = Button(self.topleft, text='Directory', command=self.direct, height=buttonheight, width=buttonwidth)
+        self.direct = tk.Button(self.topleft, text='Directory', command=self.direct, height=buttonheight, width=buttonwidth)
         self.direct.place(x=column1spacing, y=20)
-        self.config = Button(self.topleft, text='Config', command=self.config, height=buttonheight, width=buttonwidth)
+        self.config = tk.Button(self.topleft, text='Config', command=self.config, height=buttonheight, width=buttonwidth)
         self.config.place(x=column1spacing, y=70)
-        self.choosefile = Button(self.topleft, text='Choose File', command=self.choosefile, height=buttonheight, width=buttonwidth)
+        self.choosefile = tk.Button(self.topleft, text='Choose File', command=self.choosefile, height=buttonheight, width=buttonwidth)
         self.choosefile.place(x=column2spacing, y=20)
-        self.choosefolder = Button(self.topleft, text='Choose Folder', command=self.choosefolder, height=buttonheight, width=buttonwidth)
+        self.choosefolder = tk.Button(self.topleft, text='Choose Folder', command=self.choosefolder, height=buttonheight, width=buttonwidth)
         self.choosefolder.place(x=column2spacing, y=70)
         
         # mid left frame
-        self.midleft = Frame(win, width=framewidth, height=(winheight/2)-20, bg=frame_color)
+        self.midleft = tk.Frame(win, width=framewidth, height=(winheight/2)-20, bg=frame_color)
         self.midleft.grid(row=1, column=0, padx=10, pady=10, rowspan=2)
         
-        self.direct = Button(self.midleft, text='Create Project', command=self.createproj, height=buttonheight, width=buttonwidth)
+        self.direct = tk.Button(self.midleft, text='Create Project', command=self.createproj, height=buttonheight, width=buttonwidth)
         self.direct.place(x=column2spacing, y=20)
-        self.config = Button(self.midleft, text='Add Videos', command=self.addvids, height=buttonheight, width=buttonwidth)
+        self.config = tk.Button(self.midleft, text='Add Videos', command=self.addvids, height=buttonheight, width=buttonwidth)
         self.config.place(x=column2spacing, y=70)
-        self.choosefile = Button(self.midleft, text='Extract Frames', command=self.extframes, height=buttonheight, width=buttonwidth)
+        self.choosefile = tk.Button(self.midleft, text='Extract Frames', command=self.extframes, height=buttonheight, width=buttonwidth)
         self.choosefile.place(x=column2spacing, y=120)
-        self.choosefolder = Button(self.midleft, text='Label Frames', command=self.labframes, height=buttonheight, width=buttonwidth)
+        self.choosefolder = tk.Button(self.midleft, text='Label Frames', command=self.labframes, height=buttonheight, width=buttonwidth)
         self.choosefolder.place(x=column2spacing, y=170)
-        self.choosefolder = Button(self.midleft, text='Training Dataset', command=self.traindataset, height=buttonheight, width=buttonwidth)
+        self.choosefolder = tk.Button(self.midleft, text='Training Dataset', command=self.traindataset, height=buttonheight, width=buttonwidth)
         self.choosefolder.place(x=column2spacing, y=220)
         
         midlefttext = """__Startup__
@@ -70,47 +70,47 @@ __Create Project__
 Use "Directory" to set location of network.
 Use "Choose File/Folder" to select videos."""
         
-        self.p1 = Label(self.midleft, justify=LEFT, fg=fontcolor, text=midlefttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
+        self.p1 = tk.Label(self.midleft, justify=tk.LEFT, fg=fontcolor, text=midlefttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
         self.p1.place(x=5, y=5)
         
         # bot left frame
-        self.botleft = Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
+        self.botleft = tk.Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
         self.botleft.grid(row=3, column=0, padx=10, pady=10)
         
-        self.direct = Button(self.botleft, text='Train Network', command=self.trainnet, height=buttonheight, width=buttonwidth)
+        self.direct = tk.Button(self.botleft, text='Train Network', command=self.trainnet, height=buttonheight, width=buttonwidth)
         self.direct.place(x=column1spacing, y=45)
-        self.choosefile = Button(self.botleft, text='Evaluate Network', command=self.evalnet, height=buttonheight, width=buttonwidth)
+        self.choosefile = tk.Button(self.botleft, text='Evaluate Network', command=self.evalnet, height=buttonheight, width=buttonwidth)
         self.choosefile.place(x=column2spacing, y=45)
         
         # top right frame
-        self.topright = Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
+        self.topright = tk.Frame(win, width=framewidth, height=(winheight/4)-20, bg=frame_color)
         self.topright.grid(row=0, column=1, padx=10, pady=10)
         
-        self.progresstitle = Label(self.topright, fg=fontcolor, text = 'Progess', bg=frame_color, font=("TkDefaultFont", 25))
+        self.progresstitle = tk.Label(self.topright, fg=fontcolor, text = 'Progess', bg=frame_color, font=("TkDefaultFont", 25))
         self.progresstitle.place(x=130, y=5)
         
-        self.progressbarout = Frame(self.topright, width=6*framewidth/8, height = 30, bg=frame_color, highlightbackground="#ffffff", highlightthickness=2)
+        self.progressbarout = tk.Frame(self.topright, width=6*framewidth/8, height = 30, bg=frame_color, highlightbackground="#ffffff", highlightthickness=2)
         self.progressbarout.place(x=framewidth/8,y=60)
         
-        self.progressbar = Frame(self.progressbarout, width=0, height=30-4, bg='#00ff00')
+        self.progressbar = tk.Frame(self.progressbarout, width=0, height=30-4, bg='#00ff00')
         self.progressbar.place(x=0,y=0)
         
-        self.text = StringVar()
+        self.text = tk.StringVar()
         self.text.set('0 %')
-        self.progresstitle = Label(self.topright, fg=fontcolor, textvariable = self.text, bg=frame_color, font=("TkDefaultFont", 18))
+        self.progresstitle = tk.Label(self.topright, fg=fontcolor, textvariable = self.text, bg=frame_color, font=("TkDefaultFont", 18))
         self.progresstitle.place(x=framewidth/8, y=95)
         
         # bot right frame
-        self.botright = Frame(win, width=framewidth, height=(winheight/(4/3))-20, bg=frame_color)
+        self.botright = tk.Frame(win, width=framewidth, height=(winheight/(4/3))-20, bg=frame_color)
         self.botright.grid(row=1, column=1, padx=10, pady=10, rowspan=3)
         
-        self.direct = Button(self.botright, text='Analyze/Label', command=self.analyzelabel, height=buttonheight, width=buttonwidth)
+        self.direct = tk.Button(self.botright, text='Analyze/Label', command=self.analyzelabel, height=buttonheight, width=buttonwidth)
         self.direct.place(x=column2spacing, y=20)
-        self.config = Button(self.botright, text='Extract Outliers', command=self.extoutliers, height=buttonheight, width=buttonwidth)
+        self.config = tk.Button(self.botright, text='Extract Outliers', command=self.extoutliers, height=buttonheight, width=buttonwidth)
         self.config.place(x=column2spacing, y=70)
-        self.choosefile = Button(self.botright, text='Refine Labels', command=self.refinelabels, height=buttonheight, width=buttonwidth)
+        self.choosefile = tk.Button(self.botright, text='Refine Labels', command=self.refinelabels, height=buttonheight, width=buttonwidth)
         self.choosefile.place(x=column2spacing, y=120)
-        self.choosefolder = Button(self.botright, text='Merge Datasets', command=self.merge, height=buttonheight, width=buttonwidth)
+        self.choosefolder = tk.Button(self.botright, text='Merge Datasets', command=self.merge, height=buttonheight, width=buttonwidth)
         self.choosefolder.place(x=column2spacing, y=170)
         
         botrighttext = """__Analyze/Label__
@@ -120,7 +120,7 @@ Choose week/cam/"rat" folder which selects all.mp4 files inside.\n
 __Choose File__
 Choose specific folders for indicidual .mp4 files."""
         
-        self.p1 = Label(self.botright, justify=LEFT, fg=fontcolor, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
+        self.p1 = tk.Label(self.botright, justify=tk.LEFT, fg=fontcolor, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
         self.p1.place(x=5, y=5)
         
     def direct(self):
@@ -300,7 +300,7 @@ Choose specific folders for indicidual .mp4 files."""
 
 
 # window properties
-window = Tk()
+window = tk.Tk()
 mywin=MyWindow(window)
 window.title('DeepLabCut Operator')
 
