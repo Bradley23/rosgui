@@ -180,83 +180,83 @@ Choose specific folders for indicidual .mp4 files."""
     def createproj(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         projname = askstring('Create New Project','Title of Project?')
         initials = askstring('Create New Project','Creator Initials?')
         #dlc.create_new_project(projname,initials,self.vidpaths, working_directory=self.curdir,copy_videos=False)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def addvids(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         #dlc.add_new_videos(self.configfile,self.vidpaths,copy_videos=False)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def extframes(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
-        #dlc.extract_frames(self.configfile,‘manual’,crop=False, userfeedback=False)
+        window.update()
+        #dlc.extract_frames(self.configfile,"manual",crop=False, userfeedback=False)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def labframes(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         #dlc.label_frames(self.configfile)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def traindataset(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         #dlc.create_training_dataset(self.configfile,num_shuffles=1)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     
     def trainnet(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         maxiters = askinteger('Train Network',"""Maxiters? (typically "200000")""")
         #dlc.train_network(self.configfile,maxiters=maxiters)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def evalnet(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         #dlc.evaluate_network(self.configfile,plotting=True)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def analyzelabel(self):
         progress = 0
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         for vid in self.vidpaths:
             #dlc.analyze_videos(self.configfile,vid,shuffle=1,save_as_csv=True)
             #dlc.create_labeled_video(self.configfile,vid,draw_skeleton=True)
@@ -270,33 +270,33 @@ Choose specific folders for indicidual .mp4 files."""
     def extoutliers(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         #dlc.extract_outlier_frames(self.configfile,self.vidpaths)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def refinelabels(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         #dlc.refine_labels(self.configfile)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
     def merge(self):
         progresspercent = '0 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=0)
+        window.update()
         #dlc.merge_datasets(self.configfile)
         progresspercent = '100 %'
         self.text.set(progresspercent)
-        window.update()
         self.progressbar.config(width=6*framewidth/8-4)
+        window.update()
 
 
 # window properties
