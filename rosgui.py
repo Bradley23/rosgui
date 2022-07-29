@@ -16,7 +16,6 @@ import deeplabcut as dlc
 import PyQt5.QtWidgets as ptw
 import sys
 import subprocess
-import time 
 from PyQt5 import QtCore
 import os
 
@@ -91,7 +90,6 @@ def run(log):
             for vid in log[1].vidpaths:
                 dlc.analyze_videos(log[1].configfile,vid,shuffle=1,save_as_csv=True)
                 dlc.create_labeled_video(log[1].configfile,vid,draw_skeleton=True)
-                time.sleep(1)
                 progint += 1
                 
                 #finds new video
