@@ -376,7 +376,7 @@ class Window(ptw.QMainWindow):
         #use xdg-open for linux
         
     def openhelp(self):
-        subprocess.Popen(["xdg-open","/Users/bradleyrauscher/Documents/Coding/DLC_Complete_Guide.pdf"])
+        subprocess.Popen(["xdg-open","/home/spencelab/dlcgui/DLC_Complete_Guide.pdf"])
     
     #__Button Functions__
     def choosedir(self):
@@ -425,7 +425,7 @@ class Window(ptw.QMainWindow):
                     pass
             self.vidpaths.append(min(mp4files,key=len))
         print(self.vidpaths)
-        lenstr = "Selected " + len(self.vidpaths) + " videos"
+        lenstr = "Selected " + str(len(self.vidpaths)) + " videos"
         print(lenstr)
     
     def choosevids(self):
@@ -456,7 +456,7 @@ class Window(ptw.QMainWindow):
             else:
                 pass
         print(self.vidpaths)
-        lenstr = "Selected " + len(self.vidpaths) + " videos"
+        lenstr = "Selected " + str(len(self.vidpaths)) + " videos"
         print(lenstr)
     
     def choosevid(self):
@@ -490,7 +490,7 @@ class Window(ptw.QMainWindow):
                     pass
             self.vidpaths.append(min(mp4files,key=len))
         print(self.vidpaths)
-        lenstr = "Selected " + len(self.vidpaths) + " videos"
+        lenstr = "Selected " + str(len(self.vidpaths)) + " videos"
         print(lenstr)
     
     def getparent(self,file):
