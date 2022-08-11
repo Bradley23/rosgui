@@ -7,10 +7,10 @@ Created on Mon Jul 11 17:09:41 2022
 """
 
 # /DLC commands
-import tensorflow as tf
-gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.7)
-sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
-import deeplabcut as dlc
+#import tensorflow as tf
+#gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.7)
+#sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+#import deeplabcut as dlc
 # /end
 
 import PyQt5.QtWidgets as ptw
@@ -53,31 +53,31 @@ def run(log):
     QtCore.QMetaObject.invokeMethod(log[0],"progress", QtCore.Qt.QueuedConnection,QtCore.Q_ARG(int, progint))
     try:
         if log[2] == 'Create Project':
-            dlc.create_new_project(log[1].projname,log[1].initials,log[1].vidpaths, working_directory=log[1].curdir,copy_videos=False)
+            #dlc.create_new_project(log[1].projname,log[1].initials,log[1].vidpaths, working_directory=log[1].curdir,copy_videos=False)
             pass
         
         elif log[2] == 'Add Videos':
-            dlc.add_new_videos(log[1].configfile,log[1].vidpaths,copy_videos=False)
+            #dlc.add_new_videos(log[1].configfile,log[1].vidpaths,copy_videos=False)
             pass
         
         elif log[2] == 'Extract Frames':
-            dlc.extract_frames(log[1].configfile,"manual",crop=False, userfeedback=False)
+            #dlc.extract_frames(log[1].configfile,"manual",crop=False, userfeedback=False)
             pass
         
         elif log[2] == 'Label Frames':
-            dlc.label_frames(log[1].configfile)
+            #dlc.label_frames(log[1].configfile)
             pass
         
         elif log[2] == 'Create Training Dataset':
-            dlc.create_training_dataset(log[1].configfile,num_shuffles=1)
+            #dlc.create_training_dataset(log[1].configfile,num_shuffles=1)
             pass
         
         elif log[2] == 'Train Network':
-            dlc.train_network(log[1].configfile,maxiters=log[1].maxiters)
+            #dlc.train_network(log[1].configfile,maxiters=log[1].maxiters)
             pass
         
         elif log[2] == 'Evaluate Network':
-            dlc.evaluate_network(log[1].configfile,plotting=True)
+            #dlc.evaluate_network(log[1].configfile,plotting=True)
             pass
         
         elif log[2] == 'Analyze Label':
@@ -88,8 +88,8 @@ def run(log):
             progrange = len(log[1].vidpaths)
             QtCore.QMetaObject.invokeMethod(log[0],"changerange", QtCore.Qt.QueuedConnection,QtCore.Q_ARG(int, progrange))
             for vid in log[1].vidpaths:
-                dlc.analyze_videos(log[1].configfile,vid,shuffle=1,save_as_csv=True)
-                dlc.create_labeled_video(log[1].configfile,vid,draw_skeleton=True)
+                #dlc.analyze_videos(log[1].configfile,vid,shuffle=1,save_as_csv=True)
+                #dlc.create_labeled_video(log[1].configfile,vid,draw_skeleton=True)
                 progint += 1
                 
                 #finds new video
@@ -120,15 +120,15 @@ def run(log):
             
         
         elif log[2] == 'Extract Outliers':
-            dlc.extract_outlier_frames(log[1].configfile,log[1].vidpaths)
+            #dlc.extract_outlier_frames(log[1].configfile,log[1].vidpaths)
             pass
         
         elif log[2] == 'Refine Labels':
-            dlc.refine_labels(log[1].configfile)
+            #dlc.refine_labels(log[1].configfile)
             pass
         
         elif log[2] == 'Merge Datasets':
-            dlc.merge_datasets(log[1].configfile)
+            #dlc.merge_datasets(log[1].configfile)
             pass
     except:
         pass

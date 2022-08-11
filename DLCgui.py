@@ -7,10 +7,10 @@ Created on Thu Jun 16 11:27:11 2022
 """
 
 # /DLC commands
-import tensorflow as tf
-gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.7)
-sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
-import deeplabcut as dlc
+#import tensorflow as tf
+#gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.7)
+#sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+#import deeplabcut as dlc
 # /end
 
 import tkinter as tk
@@ -127,8 +127,6 @@ Choose specific folders for individual .mp4 files."""
         self.p1 = tk.Label(self.botright, justify=tk.LEFT, fg=fontcolor, text=botrighttext, wraplength=190, bg=frame_color, font=("TkDefaultFont",fontsize))
         self.p1.place(x=5, y=5)
         
-    #__BUTTON FUNCTIONS__
-    
     #top left frame
     def direct(self):
         self.curdir = askdirectory()
@@ -184,6 +182,8 @@ Choose specific folders for individual .mp4 files."""
             else:
                 pass
     
+    #__BUTTON FUNCTIONS__
+    
     #mid left frame
     def createproj(self):
         progresspercent = '0 %'
@@ -192,7 +192,7 @@ Choose specific folders for individual .mp4 files."""
         window.update()
         projname = askstring('Create New Project','Title of Project?')
         initials = askstring('Create New Project','Creator Initials?')
-        dlc.create_new_project(projname,initials,self.vidpaths, working_directory=self.curdir,copy_videos=False)
+        #dlc.create_new_project(projname,initials,self.vidpaths, working_directory=self.curdir,copy_videos=False)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -202,7 +202,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.add_new_videos(self.configfile,self.vidpaths,copy_videos=False)
+        #dlc.add_new_videos(self.configfile,self.vidpaths,copy_videos=False)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -212,7 +212,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.extract_frames(self.configfile,"manual",crop=False, userfeedback=False)
+        #dlc.extract_frames(self.configfile,"manual",crop=False, userfeedback=False)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -222,7 +222,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.label_frames(self.configfile)
+        #dlc.label_frames(self.configfile)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -232,7 +232,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.create_training_dataset(self.configfile,num_shuffles=1)
+        #dlc.create_training_dataset(self.configfile,num_shuffles=1)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -245,7 +245,7 @@ Choose specific folders for individual .mp4 files."""
         self.progressbar.config(width=0)
         window.update()
         maxiters = askinteger('Train Network',"""Maxiters? (typically "200000")""")
-        dlc.train_network(self.configfile,maxiters=maxiters)
+        #dlc.train_network(self.configfile,maxiters=maxiters)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -255,7 +255,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.evaluate_network(self.configfile,plotting=True)
+        #dlc.evaluate_network(self.configfile,plotting=True)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -269,8 +269,8 @@ Choose specific folders for individual .mp4 files."""
         self.progressbar.config(width=0)
         window.update()
         for vid in self.vidpaths:
-            dlc.analyze_videos(self.configfile,vid,shuffle=1,save_as_csv=True)
-            dlc.create_labeled_video(self.configfile,vid,draw_skeleton=True)
+            #dlc.analyze_videos(self.configfile,vid,shuffle=1,save_as_csv=True)
+            #dlc.create_labeled_video(self.configfile,vid,draw_skeleton=True)
             progress = progress + 1
             progresspercent = 100 * progress / len(self.vidpaths)
             self.progressbar.config(width=progresspercent*(6*framewidth/8-4)/100)
@@ -283,7 +283,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.extract_outlier_frames(self.configfile,self.vidpaths)
+        #dlc.extract_outlier_frames(self.configfile,self.vidpaths)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -293,7 +293,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.refine_labels(self.configfile)
+        #dlc.refine_labels(self.configfile)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
@@ -303,7 +303,7 @@ Choose specific folders for individual .mp4 files."""
         self.text.set(progresspercent)
         self.progressbar.config(width=0)
         window.update()
-        dlc.merge_datasets(self.configfile)
+        #dlc.merge_datasets(self.configfile)
         progresspercent = '100 %'
         self.text.set(progresspercent)
         self.progressbar.config(width=6*framewidth/8-4)
