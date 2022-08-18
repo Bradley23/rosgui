@@ -47,6 +47,7 @@ class ProcessRunnable(QtCore.QRunnable):
 
 def run(log):
     print('hello')
+    log.progressbar['value'] = 100
     log.curdir = '/'
     time.sleep(5)
     print('done')
@@ -148,13 +149,13 @@ class MyWindow:
         w1 = ttk.Button(cont,text="Analyze/Label Videos", style="big.TButton", command=(lambda: self.backproc(self)))
         w1.grid(row=0,column=0,padx=butpadding,sticky='WE')
         
-        w2 = ttk.Button(cont,text="Extract Outliers", style="big.TButton")
+        w2 = ttk.Button(cont,text="Extract Outliers", style="big.TButton", command=self.progress)
         w2.grid(row=1,column=0,padx=butpadding,sticky='WE')
         
-        w3 = ttk.Button(cont,text="Refine Labels", style="big.TButton")
+        w3 = ttk.Button(cont,text="Refine Labels", style="big.TButton", command=self.reset)
         w3.grid(row=2,column=0,padx=butpadding,sticky='WE')
         
-        w4 = ttk.Button(cont,text="Merge Datasets", style="big.TButton")
+        w4 = ttk.Button(cont,text="Merge Datasets", style="big.TButton", command=self.cleargrid)
         w4.grid(row=3,column=0,padx=butpadding,sticky='WE')
         
         cont.grid_columnconfigure(0,weight=1)
@@ -199,13 +200,16 @@ class MyWindow:
         
         self.vidgrid.grid(row=0,column=0)
         self.vidgrid.pack(fill='x')
+        self.vidgrid.insert('',tk.END, values='/Users/bradleyrauscher/Documents/Coding/DLC_Complete_Guide.pdf')
+        
+        self.vidgrid.bind("<Double-1>", self.opengridlink)
         
     def progressbarframe(self,inp):
         self.pbframe = tk.Frame(inp, bg=win_color)
         cont = self.pbframe
         
-        progressbar = ttk.Progressbar(cont,length=450)
-        progressbar.grid(row=0,column=0,padx=padding,pady=padding,sticky="WE")
+        self.progressbar = ttk.Progressbar(cont,length=450, mode='determinate')
+        self.progressbar.grid(row=0,column=0,padx=padding,pady=padding,sticky="WE")
         
         cont.grid_columnconfigure(0,weight=1)
         cont.grid_rowconfigure(0,weight=1)
@@ -338,6 +342,21 @@ class MyWindow:
     def backproc(self,bar):
         self.p = ProcessRunnable(target=run, args=(bar))
         self.p.start()
+    
+    def progress(self):
+        self.progressbar['maximum'] = 160
+        self.progressbar.step(20)
+        
+    def reset(self):
+        self.progressbar['value'] = 0
+        
+    def cleargrid(self):
+        self.vidgrid.delete(*self.vidgrid.get_children())
+    
+    def opengridlink(self,event):
+        link = self.vidgrid.item(self.vidgrid.focus())['values']
+        subprocess.Popen(["open",link[0]])
+        
     
 window = tk.Tk()
 app = MyWindow(window)
