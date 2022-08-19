@@ -69,6 +69,7 @@ def run(log):
         
         elif log[1] == 'Add Videos':
             #dlc.add_new_videos(log[1].configfile,log[1].vidpaths,copy_videos=False)
+            input('number')
             pass
         
         elif log[1] == 'Extract Frames':
@@ -226,7 +227,7 @@ class MyWindow:
         w3 = ttk.Button(cont,text="Extract Frames", style="big.TButton", command=(lambda: self.DLCcommands((self,'Extract Frames'))))
         w3.grid(row=2,column=0,padx=butpadding,sticky='WE')
         
-        w4 = ttk.Button(cont,text="Label Frames", style="big.TButton", command=(lambda: self.DLCcommands((self,'Label Frames'))))
+        w4 = ttk.Button(cont,text="Label Frames", style="big.TButton", command=self.labelframes)
         w4.grid(row=3,column=0,padx=butpadding,sticky='WE')
         
         cont.grid_columnconfigure(0,weight=1)
@@ -246,7 +247,7 @@ class MyWindow:
         w2 = ttk.Button(cont,text="Extract Outliers", style="big.TButton", command=(lambda: self.DLCcommands((self,'Extract Outliers'))))
         w2.grid(row=1,column=0,padx=butpadding,sticky='WE')
         
-        w3 = ttk.Button(cont,text="Refine Labels", style="big.TButton", command=(lambda: self.DLCcommands((self,'Refine Labels'))))
+        w3 = ttk.Button(cont,text="Refine Labels", style="big.TButton", command=self.refinelabels)
         w3.grid(row=2,column=0,padx=butpadding,sticky='WE')
         
         w4 = ttk.Button(cont,text="Merge Datasets", style="big.TButton", command=(lambda: self.DLCcommands((self,'Merge Datasets'))))
@@ -316,7 +317,7 @@ class MyWindow:
         print(self.curdir)
     
     def choosecon(self):
-        self.configfile,_ = askopenfilename(initialdir=self.curdir)
+        self.configfile = askopenfilename(initialdir=self.curdir)
         print(self.configfile)
         
     def choosevidspar(self):
@@ -454,6 +455,32 @@ class MyWindow:
         self.initials = askstring('Create New Project','Creator Initials?')
         self.p = ProcessRunnable(target=run, args=(dlcarg))
         self.p.start()
+        
+    def labelframes(self):
+        self.progressbar['value'] = 0
+        for frame in (self.topleft,self.botleft,self.topright):
+            for child in frame.winfo_children():
+                child.configure(state='disable')
+                
+        #dlc.label_frames(log[1].configfile)
+        
+        for frame in (self.topleft,self.botleft,self.topright):
+            for child in frame.winfo_children():
+                child.configure(state='normal')
+        self.progressbar['value'] = log[0].progressbar['maximum']
+    
+    def refinelabels(self):
+        self.progressbar['value'] = 0
+        for frame in (self.topleft,self.botleft,self.topright):
+            for child in frame.winfo_children():
+                child.configure(state='disable')
+                
+        #dlc.refine_labels(log[1].configfile)
+        
+        for frame in (self.topleft,self.botleft,self.topright):
+            for child in frame.winfo_children():
+                child.configure(state='normal')
+        self.progressbar['value'] = log[0].progressbar['maximum']
         
     
 window = tk.Tk()
