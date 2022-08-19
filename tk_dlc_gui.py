@@ -21,7 +21,6 @@ from tkinter.messagebox import askokcancel
 import os
 from PyQt5 import QtCore
 import subprocess
-import time
 
 padding = 10
 toppadding = 5
@@ -63,8 +62,6 @@ def run(log):
     try:
         if log[1] == 'Create Project':
             dlc.create_new_project(log[1].projname,log[1].initials,log[1].vidpaths, working_directory=log[1].curdir,copy_videos=False)
-            time.sleep(0.5)
-            
             pass
         
         elif log[1] == 'Add Videos':
@@ -96,7 +93,6 @@ def run(log):
                 dlc.analyze_videos(log[1].configfile,vid,shuffle=1,save_as_csv=True)
                 dlc.create_labeled_video(log[1].configfile,vid,draw_skeleton=True)
                 progint += 1
-                time.sleep(1)
                 #finds new video
                 parent = getparentex(vid)
                 
