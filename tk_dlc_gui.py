@@ -7,10 +7,10 @@ Created on Mon Aug  8 18:00:01 2022
 """
 
 # /DLC commands
-#import tensorflow as tf
-#gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.7)
-#sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
-#import deeplabcut as dlc
+import tensorflow as tf
+gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.7)
+sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+import deeplabcut as dlc
 # /end
 
 import tkinter as tk
@@ -62,46 +62,39 @@ def run(log):
             
     try:
         if log[1] == 'Create Project':
-            #dlc.create_new_project(log[1].projname,log[1].initials,log[1].vidpaths, working_directory=log[1].curdir,copy_videos=False)
+            dlc.create_new_project(log[1].projname,log[1].initials,log[1].vidpaths, working_directory=log[1].curdir,copy_videos=False)
             time.sleep(0.5)
             
             pass
         
         elif log[1] == 'Add Videos':
-            #dlc.add_new_videos(log[1].configfile,log[1].vidpaths,copy_videos=False)
+            dlc.add_new_videos(log[1].configfile,log[1].vidpaths,copy_videos=False)
             input('number')
             pass
         
         elif log[1] == 'Extract Frames':
-            #dlc.extract_frames(log[1].configfile,"manual",crop=False, userfeedback=False)
-            pass
-        
-        elif log[1] == 'Label Frames':
-            #dlc.label_frames(log[1].configfile)
+            dlc.extract_frames(log[1].configfile,"manual",crop=False, userfeedback=False)
             pass
         
         elif log[1] == 'Create Training Dataset':
-            #dlc.create_training_dataset(log[1].configfile,num_shuffles=1)
+            dlc.create_training_dataset(log[1].configfile,num_shuffles=1)
             pass
         
         elif log[1] == 'Train Network':
-            #dlc.train_network(log[1].configfile,maxiters=log[1].maxiters)
+            dlc.train_network(log[1].configfile,maxiters=log[1].maxiters)
             pass
         
         elif log[1] == 'Evaluate Network':
-            #dlc.evaluate_network(log[1].configfile,plotting=True)
+            dlc.evaluate_network(log[1].configfile,plotting=True)
             pass
         
         elif log[1] == 'Analyze Label':
             log[0].cleargrid()
-            
-            ####
             log[0].progressbar['maximum'] = len(log[0].vidpaths)
-            
 
             for vid in log[0].vidpaths:
-                #dlc.analyze_videos(log[1].configfile,vid,shuffle=1,save_as_csv=True)
-                #dlc.create_labeled_video(log[1].configfile,vid,draw_skeleton=True)
+                dlc.analyze_videos(log[1].configfile,vid,shuffle=1,save_as_csv=True)
+                dlc.create_labeled_video(log[1].configfile,vid,draw_skeleton=True)
                 progint += 1
                 time.sleep(1)
                 #finds new video
@@ -114,7 +107,7 @@ def run(log):
                     files.extend(filenames)
                     break
                 for vidname in files:
-                    if vidname[-3:] == '.py':
+                    if vidname[-4:] == '.mp4':
                         fullpath = dirpath+'/'+vidname
                         mp4files.append(fullpath)
                     else:
@@ -128,15 +121,11 @@ def run(log):
             
         
         elif log[1] == 'Extract Outliers':
-            #dlc.extract_outlier_frames(log[1].configfile,log[1].vidpaths)
+            dlc.extract_outlier_frames(log[1].configfile,log[1].vidpaths)
             pass
-        
-        elif log[1] == 'Refine Labels':
-            #dlc.refine_labels(log[1].configfile)
-            pass
-        
+
         elif log[1] == 'Merge Datasets':
-            #dlc.merge_datasets(log[1].configfile)
+            dlc.merge_datasets(log[1].configfile)
             pass
     except:
         pass
@@ -151,10 +140,6 @@ class MyWindow:
     def __init__(self,win):
         
         s = ttk.Style()
-        print(s.theme_names())
-        
-        print(s.theme_use())
-        
         s.theme_use('clam')
         
         s.configure('TFrame',background=win_color)
@@ -218,7 +203,7 @@ class MyWindow:
         self.topleft = tk.Frame(inp,bg=frame_color)
         cont = self.topleft
         
-        w1 = ttk.Button(cont,text="Create Project", style="big.TButton", command=(lambda: self.DLCcommands((self,'Create Project'))))
+        w1 = ttk.Button(cont,text="Create Project", style="big.TButton", command=(lambda: self.createnet((self,'Create Project'))))
         w1.grid(row=0,column=0,padx=butpadding,sticky='WE')
         
         w2 = ttk.Button(cont,text="Add Videos", style="big.TButton", command=(lambda: self.DLCcommands((self,'Add Videos'))))
@@ -290,12 +275,9 @@ class MyWindow:
         self.vidgrid = ttk.Treeview(cont,columns=('vid'),show='headings')
         self.vidgrid.column('vid')
         self.vidgrid.heading('vid', text='Videos')
-        for i in range(30):
-            self.vidgrid.insert('', tk.END, values=i)
         
         self.vidgrid.grid(row=0,column=0)
         self.vidgrid.pack(fill='x')
-        self.vidgrid.insert('',tk.END, values='/Users/bradleyrauscher/Documents/Coding/DLC_Complete_Guide.pdf')
         
         self.vidgrid.bind("<Double-1>", self.opengridlink)
         
@@ -351,7 +333,7 @@ class MyWindow:
                 files2.extend(filenames2)
                 break
             for vidname in files2:
-                if vidname[-3:] == '.py':
+                if vidname[-4:] == '.mp4':
                     fullpath = dirpath2+'/'+vidname
                     mp4files.append(fullpath)
                 else:
@@ -379,7 +361,7 @@ class MyWindow:
                 break
             allmp4s = []
             for vidname in files2:
-                if vidname[-3:] == '.py':
+                if vidname[-4:] == '.mp4':
                     fullpath = dirpath2+'/'+vidname
                     allmp4s.append(fullpath)
                 else:
@@ -410,7 +392,7 @@ class MyWindow:
                 files.extend(filenames)
                 break
             for vidname in files:
-                if vidname[-3:] == '.py':
+                if vidname[-4:] == '.mp4':
                     fullpath = dirpath+'/'+vidname
                     mp4files.append(fullpath)
                 else:
@@ -429,8 +411,10 @@ class MyWindow:
         return(file)
     
     def openhelp(self):
-        link = '/Users/bradleyrauscher/Documents/Coding/DLC_Complete_Guide.pdf'
-        subprocess.Popen(["open",link])
+        link = '/home/spencelab/dlcgui/DLC_Complete_Guide.pdf'
+        subprocess.Popen(["xdg-open",link])
+        link2 = '/home/spencelab/dlcgui/dlcguihelp.txt'
+        subprocess.Popen(["xdg-open",link2])
     
     #__DLC Buttons__
         
@@ -439,7 +423,7 @@ class MyWindow:
     
     def opengridlink(self,event):
         link = self.vidgrid.item(self.vidgrid.focus())['values']
-        subprocess.Popen(["open",link[0]])
+        subprocess.Popen(["xdg-open",link[0]])
     
     def DLCcommands(self,dlcarg):
         self.p = ProcessRunnable(target=run, args=(dlcarg))
@@ -451,7 +435,7 @@ class MyWindow:
         self.p.start()
     
     def createnet(self,dlcarg):
-        self.projname = ('Create New Project','Title of Project?')
+        self.projname = askstring('Create New Project','Title of Project?')
         self.initials = askstring('Create New Project','Creator Initials?')
         self.p = ProcessRunnable(target=run, args=(dlcarg))
         self.p.start()
@@ -462,12 +446,12 @@ class MyWindow:
             for child in frame.winfo_children():
                 child.configure(state='disable')
                 
-        #dlc.label_frames(log[1].configfile)
+        dlc.label_frames(self.configfile)
         
         for frame in (self.topleft,self.botleft,self.topright):
             for child in frame.winfo_children():
                 child.configure(state='normal')
-        self.progressbar['value'] = log[0].progressbar['maximum']
+        self.progressbar['value'] = self.progressbar['maximum']
     
     def refinelabels(self):
         self.progressbar['value'] = 0
@@ -475,12 +459,12 @@ class MyWindow:
             for child in frame.winfo_children():
                 child.configure(state='disable')
                 
-        #dlc.refine_labels(log[1].configfile)
+        dlc.refine_labels(self.configfile)
         
         for frame in (self.topleft,self.botleft,self.topright):
             for child in frame.winfo_children():
                 child.configure(state='normal')
-        self.progressbar['value'] = log[0].progressbar['maximum']
+        self.progressbar['value'] = self.progressbar['maximum']
         
     
 window = tk.Tk()
